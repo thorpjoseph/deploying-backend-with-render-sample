@@ -16,15 +16,18 @@ const BORED_API_BASE_URL = 'https://www.boredapi.com/api/';
 
 async function getRandomActivity() {
   try {
-    const response = await fetch(BORED_API_BASE_URL + 'activity');
+    const response = await fetch('https://www.boredapi.com/api/activity/');
+    const data = await response.json();
+    
     if (response.ok) {
-      const data = await response.json();
-      return data.activity;
+      return data.activity; // Assuming data.activity contains the activity
     } else {
-      return null;
+      console.error('BoredAPI error:', data);
+      return null; // Return null if the API doesn't return a valid response
     }
   } catch (error) {
-    return null;
+    console.error('Network error:', error);
+    return null; // Handle network errors
   }
 }
 
